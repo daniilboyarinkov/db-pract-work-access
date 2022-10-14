@@ -50,7 +50,7 @@ namespace db_pract_work_access
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string q = "SELECT * FROM Students WHERE FIO LIKE 'È*'";
+            string q = "SELECT * FROM Students WHERE LEFT(FIO, 1)='È'";
             updateStudents(q);
         }
 
@@ -100,17 +100,19 @@ namespace db_pract_work_access
 
         private void button5_Click(object sender, EventArgs e)
         {
-            string query = "INSERT INTO students (FIO, Institute, [Group], Age, Course) SELECT FIO, Institute, Group, Age, Course FROM students WHERE Institute='ÈÊÈÒ';";
+            string q = "INSERT INTO students ( FIO, Institute, [Group], Age, Course ) " +
+                "SELECT FIO, Institute, Group, Age, Course FROM students WHERE Institute='ÈÊÈÒ';";
 
-            OleDbCommand command = new OleDbCommand(query, _connection);
+            OleDbCommand command = new OleDbCommand(q, _connection);
 
             command.ExecuteNonQuery();
+
             updateStudents();
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            string query = "delete from students where id > 6";
+            string query = "delete from students where id >= 6";
 
             OleDbCommand command = new OleDbCommand(query, _connection);
 
